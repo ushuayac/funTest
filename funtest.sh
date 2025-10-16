@@ -18,7 +18,7 @@ echo "Current Max Capacity: $maximumCap"
 echo "Original Design Capacity: $designCap"
 echo "Battery Condition: $battCondition"
 
-batteryHealth=$(echo "scale=0; $maximumCap / $designCap * 100" | bc)
+batteryHealth=$(echo "scale=2; $maximumCap / $designCap * 100" | bc)
 
 echo "BATTERY HEALTH: $batteryHealth percent"
 echo "(Battery health is Maximum Cap divided by Design Cap)"
