@@ -1,9 +1,9 @@
 #!/bin/bash 
 
 # Connect to wifi (doesn't always work for some reason)
-echo "Attempting to connect wifi, connect manually if unsuccessful!"
-networksetup -setairportnetwork en0 "Aaxl" "\][poiuy"
-echo
+#echo "Attempting to connect wifi, connect manually if unsuccessful!"
+#networksetup -setairportnetwork en0 "Aaxl" "\][poiuy"
+#echo
 
 # Grab and display Battery Cycle info
 battCycles="$(system_profiler SPPowerDataType | grep -e "Cycle Count")"
