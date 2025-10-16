@@ -6,17 +6,17 @@
 #echo
 
 # Grab and display Battery Cycle info
-battCycles="$(system_profiler SPPowerDataType | grep -e "Cycle Count")"
-battCycles="$(echo "$battCycles" | grep -o '[0-9]\+')"
-echo "BATTERY CYCLES: $battCycles"
+battCycles="$(system_profiler SPPowerDataType | grep -A 1 -e "Cycle Count")"
+echo "$battCycles"
 echo
 
 # Grab design/max capacity to calculate and display health
 designCap=$(ioreg -l | grep -Fw "DesignCapacity" | tail -1 | grep -o '[0-9]\+')
 maximumCap=$(ioreg -l | grep -Fw "MaxCapacity" | tail -1 | grep -o '[0-9]\+')
+battCondition=$(ioreg -l | grep -Fw "Condition" | tail -1)
 echo "Current Max Capacity: $maximumCap"
 echo "Original Design Capacity: $designCap"
-echo
+echo "Battery Condition: $battCondition"
 
 batteryHealth=$(echo "scale=2; $maximumCap / $designCap" | bc | grep -o '[0-9]\+')
 
