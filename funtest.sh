@@ -25,12 +25,10 @@ echo "(Battery health is Maximum Cap divided by Design Cap)"
 echo
 
 # Open safari for functionality testing on retest.us
+echo "Attempting to open Safari, please start manually if needed."        
+# Attempt one
 open -a Safari "https://spinning.fish/" "https://testmyscreen.com/" "https://retest.us/macbook"
-if pgrep -q "Safari"; then
-        echo "Safari successfully started!"
-    else
-        # Next try opening by pointing to the .app in the Application directory
-        open -a "/Applications/Safari.app" "https://spinning.fish/" "https://testmyscreen.com/" "https://retest.us/macbook"
-        open "/Applications/"
-        echo "Attempting to open Safari, please start manually if needed."        
-    fi
+# Attempt two
+open "/Applications/Safari.app" "https://spinning.fish/" "https://testmyscreen.com/" "https://retest.us/macbook"
+# Fallback
+open "/Applications/"
