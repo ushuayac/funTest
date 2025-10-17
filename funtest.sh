@@ -31,12 +31,6 @@ if pgrep -q "Safari"; then
     else
         # Next try opening by pointing to the .app in the Application directory
         open -a "/Applications/Safari.app" "https://spinning.fish/" "https://testmyscreen.com/" "https://retest.us/macbook"
-                
-        if pgrep -q "Safari"; then
-            echo "Safari successfully started!"
-        else
-            echo "Can't find Safari window! Please start the application manually."
-            # Finally, fall back to opening Finder for a manual start
-            open "/Applications/"
-        fi
+        open "/Applications/"
+        echo "Attempting to open Safari, please start manually if needed."        
     fi
