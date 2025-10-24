@@ -5,9 +5,20 @@
 #networksetup -setairportnetwork en0 "Aaxl" "\][poiuy"
 #echo
 
+# Display general device info for SKU usage: Model Name, Basic(?), CPU, and GPU(s)
+echo "========== DEVICE INFO =========="
+cpuInfo="$(sysctl -n machdep.cpu.brand_string)"
+echo "CPU DETECTED: $cpuInfo"
+
+gpuInfoIntel="$(system_profiler SPDisplaysDataType | grep -A 1 -e "Intel" | head -1| awk '{$1=$1}1')"
+gpuInfoAMD="$(system_profiler SPDisplaysDataType | grep -A 1 -e "AMD" | head -1| awk '{$1=$1}1')"
+echo "GPU(s) DETECTED: $gpuInfoIntel | $gpuInfoAMD"
+echo
+
 # Grab and display Battery Cycle info
+echo "========== BATTERY INFO =========="
 battCycles="$(system_profiler SPPowerDataType | grep -A 1 -e "Cycle Count")"
-echo "$battCycles"
+echo "$battCycles" | awk '{$1=$1}1'
 echo
 
 # Grab design/max capacity to calculate and display health
@@ -20,6 +31,7 @@ echo "Battery Condition: $battCondition"
 
 batteryHealth=$(echo "scale=2; $maximumCap / $designCap * 100" | bc)
 
+echo
 echo "BATTERY HEALTH: $batteryHealth percent"
 echo "(Battery health is Maximum Cap divided by Design Cap)"
 echo
