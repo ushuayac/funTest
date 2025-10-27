@@ -15,6 +15,14 @@ gpuInfoAMD="$(system_profiler SPDisplaysDataType | grep -A 1 -e "AMD" | head -1|
 echo "GPU(s) DETECTED: $gpuInfoIntel | $gpuInfoAMD"
 echo
 
+memSize=$(sysctl -n hw.memsize)
+memSize=$(expr $memSize / $((1024**3)))
+echo "SYSTEM MEMORY: $memSize GB"
+
+storageSize=$(df -H / | awk 'NR==2 {print $2}' | awk '{$1=$1}1')
+echo "TOTAL STORAGE: $storageSize"
+echo
+
 # Grab and display Battery Cycle info
 echo "========== BATTERY INFO =========="
 battCycles="$(system_profiler SPPowerDataType | grep -A 1 -e "Cycle Count")"
@@ -24,10 +32,8 @@ echo
 # Grab design/max capacity to calculate and display health
 designCap=$(ioreg -l | grep -Fw "DesignCapacity" | tail -1 | grep -o '[0-9]\+')
 maximumCap=$(ioreg -l | grep -Fw "MaxCapacity" | tail -1 | grep -o '[0-9]\+')
-battCondition=$(ioreg -l | grep -Fw "Condition" | tail -1)
 echo "Current Max Capacity: $maximumCap"
 echo "Original Design Capacity: $designCap"
-echo "Battery Condition: $battCondition"
 
 batteryHealth=$(echo "scale=2; $maximumCap / $designCap * 100" | bc)
 
