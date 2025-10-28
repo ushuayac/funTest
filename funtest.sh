@@ -7,6 +7,9 @@
 
 # Display general device info for SKU usage: Model Name, Basic(?), CPU, and GPU(s)
 echo "========== DEVICE INFO =========="
+model=$(sysctl -n hw.model)    
+echo "DEVICE MODEL: $model"
+
 cpuInfo="$(sysctl -n machdep.cpu.brand_string)"
 echo "CPU DETECTED: $cpuInfo"
 
