@@ -15,7 +15,8 @@ echo "CPU DETECTED: $cpuInfo"
 
 gpuInfoIntel="$(system_profiler SPDisplaysDataType | grep -A 1 -e "Intel" | head -1| awk '{$1=$1}1')"
 gpuInfoAMD="$(system_profiler SPDisplaysDataType | grep -A 1 -e "AMD" | head -1| awk '{$1=$1}1')"
-echo "GPU(s) DETECTED: $gpuInfoIntel | $gpuInfoAMD"
+gpuInfoM1="$(system_profiler SPDisplaysDataType | grep -A 1 -e "Apple" | head -1| awk '{$1=$1}1')"
+echo "GPU(s) DETECTED: $gpuInfoIntel | $gpuInfoAMD | $gpuInfoM1"
 echo
 
 memSize=$(sysctl -n hw.memsize)
@@ -34,7 +35,7 @@ echo
 
 # Grab design/max capacity to calculate and display health
 designCap=$(ioreg -l | grep -Fw "DesignCapacity" | tail -1 | grep -o '[0-9]\+')
-maximumCap=$(ioreg -l | grep -Fw "MaxCapacity" | tail -1 | grep -o '[0-9]\+')
+maximumCap=$(ioreg -l | grep -Fw "AppleRawMaxCapacity" | tail -1 | grep -o '[0-9]\+')
 echo "Current Max Capacity: $maximumCap"
 echo "Original Design Capacity: $designCap"
 
