@@ -16,7 +16,7 @@ echo "CPU DETECTED: $cpuInfo"
 gpuInfoIntel="$(system_profiler SPDisplaysDataType | grep -A 1 -e "Intel" | head -1| awk '{$1=$1}1')"
 gpuInfoAMD="$(system_profiler SPDisplaysDataType | grep -A 1 -e "AMD" | head -1| awk '{$1=$1}1')"
 gpuInfoM1="$(system_profiler SPDisplaysDataType | grep -A 1 -e "Apple" | head -1| awk '{$1=$1}1')"
-echo "GPU(s) DETECTED: $gpuInfoIntel | $gpuInfoAMD | $gpuInfoM1"
+echo "GPU(s) DETECTED: $gpuInfoIntel|$gpuInfoAMD|$gpuInfoM1"
 echo
 
 memSize=$(sysctl -n hw.memsize)
